@@ -1,7 +1,9 @@
 package com.example.jpastudentprep.dto;
 
 import com.example.jpastudentprep.model.Student;
+import org.springframework.stereotype.Component;
 
+@Component
 public class StudentConverter {
     public Student toEntity(StudentDTO studentDTO){
         return new Student(

@@ -68,7 +68,7 @@ public class StudentRestController {
     public ResponseEntity<StudentDTO> putStudent(@PathVariable("id") int id, @RequestBody StudentDTO studentDTO){
         Optional<Student> optionalStudent = studentRepository.findById(id);
         if (optionalStudent.isPresent()){
-            Student student = studentDTO.toEntity();
+            Student student = studentConverter.toEntity(studentDTO);
             student.setId(id);
             studentRepository.save(student);
             return new ResponseEntity<>(studentDTO, HttpStatus.OK);
