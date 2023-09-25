@@ -35,7 +35,7 @@ class StudentConverterTest {
         //Act
         Student resultStudent = studentConverter.toEntity(testStudentDTO);
         //Assert
-        assertEquals(testStudent.getId(), resultStudent.getId());
+        assertEquals(resultStudent.getId(), testStudent.getId());
     }
 
     @Test
@@ -43,6 +43,6 @@ class StudentConverterTest {
         //Act
         StudentDTO resultStudentDTO = studentConverter.toDTO(testStudent);
         //Assert
-        assertEquals(resultStudentDTO.id(), testStudentDTO.id());
+        assertEquals(testStudentDTO.id(), resultStudentDTO.id());
     }
 }
