@@ -17,9 +17,18 @@ class StudentConverterTest {
     @Autowired
     StudentConverter studentConverter;
 
-    Student testStudent = new Student( 42, "Neja", LocalDate.of(2005, 6, 7), LocalTime.of(8, 9,10));;
-    StudentDTO testStudentDTO = new StudentDTO( 42, "Neja", LocalDate.of(2005, 6, 7), LocalTime.of(8, 9,10));;
-
+    Student testStudent = new Student(
+            42,
+            "Neja",
+            LocalDate.of(2005, 6, 7),
+            LocalTime.of(8, 9,10)
+    );
+    StudentDTO testStudentDTO = new StudentDTO(
+            42,
+            "Neja",
+            LocalDate.of(2005, 6, 7),
+            LocalTime.of(8, 9,10)
+    );
 
     @Test
     void toEntityTest() {
