@@ -24,37 +24,4 @@ public class Student {
     private LocalDate bornDate;
     private LocalTime bornTime;
 
-/*
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LocalDate getBornDate() {
-        return bornDate;
-    }
-
-    public void setBornDate(LocalDate bornDate) {
-        this.bornDate = bornDate;
-    }
-
-    public LocalTime getBornTime() {
-        return bornTime;
-    }
-
-    public void setBornTime(LocalTime bornTime) {
-        this.bornTime = bornTime;
-    }
-*/
 }
