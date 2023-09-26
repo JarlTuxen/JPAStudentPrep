@@ -23,8 +23,6 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(responseBody, HttpStatus.NOT_FOUND);
     }
 
-
-
     // General exceptions (500 Internal Server Error)
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
