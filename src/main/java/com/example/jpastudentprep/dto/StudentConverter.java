@@ -14,7 +14,7 @@ public class StudentConverter {
         );
     }
 
-    public StudentDTO toDTO(Student student){
+    public StudentDTO toDto(Student student){
         return new StudentDTO(
                 student.getId(),
                 student.getName(),

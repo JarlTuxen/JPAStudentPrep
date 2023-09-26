@@ -1,7 +1,6 @@
 package com.example.jpastudentprep.dto;
 
 import com.example.jpastudentprep.model.Student;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -41,7 +40,7 @@ class StudentConverterTest {
     @Test
     void toDTOTest() {
         //Act
-        StudentDTO resultStudentDTO = studentConverter.toDTO(testStudent);
+        StudentDTO resultStudentDTO = studentConverter.toDto(testStudent);
         //Assert
         assertEquals(testStudentDTO.id(), resultStudentDTO.id());
     }

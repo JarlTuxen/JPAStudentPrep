@@ -1,120 +1,52 @@
 package com.example.jpastudentprep.controller;
 
-import com.example.jpastudentprep.dto.StudentConverter;
 import com.example.jpastudentprep.dto.StudentDTO;
-import com.example.jpastudentprep.model.Student;
-import com.example.jpastudentprep.repository.StudentRepository;
+import com.example.jpastudentprep.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin
 @RestController
+@RequestMapping("/students")
 public class StudentRestController {
+    private final StudentService studentService;
 
     @Autowired
-    StudentRepository studentRepository;
-
-    @Autowired
-    StudentConverter studentConverter;
-
-    @GetMapping("/students")
-    public List<StudentDTO> students() {
-       List<Student> studentList = studentRepository.findAll();
-       List<StudentDTO> studentDTOList = new ArrayList<>();
-       studentList.forEach(student -> {
-           //StudentDTO studentDTO = studentConverter.toDTO(student);
-           studentDTOList.add(studentConverter.toDTO(student));
-       });
-       return studentDTOList;
+    public StudentRestController(StudentService studentService) {
+        this.studentService = studentService;
     }
 
-    @GetMapping("/student/{id}")
-    public ResponseEntity<StudentDTO> getStudentById(@PathVariable("id") int id){
-        Optional<Student> optionalStudent = studentRepository.findById(id);
-        if (optionalStudent.isPresent()){
-            Student student = optionalStudent.get();
-            /*StudentDTO studentDTO = new StudentDTO(
-                    student.getId(),
-                    student.getName(),
-                    student.getBornDate(),
-                    student.getBornTime()
-            );*/
-            return ResponseEntity.ok(studentConverter.toDTO(student));
-        }
-        else {
-            return ResponseEntity.notFound().build();
-        }
+    @GetMapping
+    public ResponseEntity<List<StudentDTO>> getAllStudents() {
+        List<StudentDTO> students = studentService.getAllStudents();
+        return new ResponseEntity<>(students, HttpStatus.OK);
     }
 
-    @PostMapping("/student")
-    @ResponseStatus(HttpStatus.CREATED)
-    public StudentDTO postStudent(@RequestBody StudentDTO studentDTO){
-        System.out.println(studentDTO);
-        Student student = studentConverter.toEntity(studentDTO);
-        student.setId(0);
-        studentRepository.save(student);
-        return studentConverter.toDTO(student);
+    @GetMapping("/{id}")
+    public ResponseEntity<StudentDTO> getStudentById(@PathVariable("id") int id) {
+        StudentDTO student = studentService.getStudentById(id);
+        return new ResponseEntity<>(student, HttpStatus.OK);
     }
 
-    @PutMapping("/student/{id}")
-    public ResponseEntity<StudentDTO> putStudent(@PathVariable("id") int id, @RequestBody StudentDTO studentDTO){
-        Optional<Student> optionalStudent = studentRepository.findById(id);
-        if (optionalStudent.isPresent()){
-            Student student = studentConverter.toEntity(studentDTO);
-            student.setId(id);
-            studentRepository.save(student);
-            return new ResponseEntity<>(studentDTO, HttpStatus.OK);
-        }
-        else {
-            return ResponseEntity.notFound().build();
-        }
+    @PostMapping
+    public ResponseEntity<StudentDTO> createStudent(@RequestBody StudentDTO studentDTO) {
+        StudentDTO createdStudent = studentService.createStudent(studentDTO);
+        return new ResponseEntity<>(createdStudent, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/student/{id}")
-    public ResponseEntity<String> deleteStudent(@PathVariable("id") int id){
-        Optional<Student> optionalStudent = studentRepository.findById(id);
-        if (optionalStudent.isPresent()){
-            studentRepository.deleteById(id);
-            return ResponseEntity.ok("Student deleted");
-        }
-        else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Student not found");
-        }
+    @PutMapping("/{id}")
+    public ResponseEntity<StudentDTO> updateStudent(@PathVariable("id") int id, @RequestBody StudentDTO studentDTO) {
+        StudentDTO updatedStudent = studentService.updateStudent(id, studentDTO);
+        return new ResponseEntity<>(updatedStudent, HttpStatus.OK);
     }
 
-    @GetMapping("/addstudent")
-    public List<Student> addStudents() {
-        Student std = new Student();
-        std.setName("Qrt");
-        std.setBornDate(LocalDate.now());
-        std.setBornTime(LocalTime.now());
-        studentRepository.save(std);
-
-        List<Student> lst = studentRepository.findAll();
-        return lst;
-    }
-
-    @GetMapping("students/{name}")
-    public List<StudentDTO> getAllStudentsByName(@PathVariable String name){
-        List<Student> studentList = studentRepository.findAllByName(name);
-        List<StudentDTO> studentDTOList = new ArrayList<>();
-        studentList.forEach(student -> {
-            StudentDTO studentDTO = new StudentDTO(
-                    student.getId(),
-                    student.getName(),
-                    student.getBornDate(),
-                    student.getBornTime()
-            );
-            studentDTOList.add(studentDTO);
-        });
-        return studentDTOList;
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteStudentById(@PathVariable("id") int id) {
+        studentService.deleteStudentById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
