@@ -25,11 +25,11 @@ public class InitData implements CommandLineRunner {
         s1.setName("Tim");
         studentRepository.save(s1); //update
 
-        /*Student s2 = new Student();
-        s2.setName("Dickens");
+        Student s2 = new Student();
+        s2.setName("Vladimir");
         s2.setBornDate(LocalDate.of(2010, 10, 10));
         s2.setBornTime(LocalTime.of(11, 11,9));
-        studentRepository.save(s2);*/
+        studentRepository.save(s2);
 
     }
 }
