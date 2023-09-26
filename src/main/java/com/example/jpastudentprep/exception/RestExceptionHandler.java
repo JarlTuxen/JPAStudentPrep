@@ -13,6 +13,7 @@ import java.util.Map;
 @ControllerAdvice
 public class RestExceptionHandler {
 
+    //student not found expection (404 Not Found)
     @ExceptionHandler(StudentNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<Object> handleStudentNotFoundException(StudentNotFoundException ex) {
