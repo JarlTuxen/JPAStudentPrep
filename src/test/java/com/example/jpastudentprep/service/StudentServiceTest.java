@@ -69,7 +69,8 @@ class StudentServiceTest {
 
     @AfterEach
     void closeMock() throws Exception {
-            closable.close();
+        //cleanup after each test
+        closable.close();
     }
 
     @Test
