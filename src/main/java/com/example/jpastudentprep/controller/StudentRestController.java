@@ -20,6 +20,17 @@ public class StudentRestController {
         this.studentService = studentService;
     }
 
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello World";
+    }
+
+    @GetMapping("/hello2/{sleep}")
+    public String hello(@PathVariable int sleep) throws InterruptedException {
+        Thread.sleep(sleep);
+        return "Hello World";
+    }
+
     @GetMapping
     public ResponseEntity<List<StudentDTO>> getAllStudents() {
         List<StudentDTO> students = studentService.getAllStudents();
